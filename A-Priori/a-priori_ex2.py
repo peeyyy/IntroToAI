@@ -62,6 +62,9 @@ def support_percent(count):
 def support(itemset):
     return support_count(itemset)/num_transactions
 
+def format_itemset(itemset):
+    return "{" + ", ".join(sorted(itemset)) + "}"
+
 
 # -----------------------------------------------------
 # FREQUENT 1-ITEMSETS
@@ -137,36 +140,46 @@ for tri,count in counter3.items():
 # -----------------------------------------------------
 
 print("\n\nASSOCIATION RULES:")
-print("-"*116)
+print("-"*100)
 
-row_fmt = "{:<28}{:<4}{:<28}{:>10}{:>8}{:>12}{:>8}"
+# collect all frequent itemsets used for rules (size >= 2)
+frequent_itemsets_for_rules = []
 
-print(row_fmt.format("Antecedent","->","Consequent","Support","Count","Confidence","Lift"))
-print("-"*116)
+for pair, count in F2.items():
+    frequent_itemsets_for_rules.append((set(pair), count))
+
+for tri, count in F3.items():
+    frequent_itemsets_for_rules.append((set(tri), count))
+
+frequent_itemsets_for_rules = sorted(
+    frequent_itemsets_for_rules,
+    key=lambda x: (len(x[0]), sorted(x[0]))
+)
+
+print("We have 5 frequent itemsets:")
+itemset_text = [format_itemset(itemset) for itemset, _ in frequent_itemsets_for_rules]
+print("- " + ", ".join(itemset_text[:-1]) + " and " + itemset_text[-1] + ".")
+
+print("\nTherefore, candidate rules are:")
 
 rules=[]
 
-for tri,count in F3.items():
-    items=set(tri)
-
+for itemset, count in frequent_itemsets_for_rules:
+    items = set(itemset)
+    sup_count = support_count(items)
+    print(f"\nFor {format_itemset(items)},")
     for i in range(1,len(items)):
         for antecedent in combinations(items,i):
-            antecedent=set(antecedent)
-            consequent=items-antecedent
+            antecedent = set(antecedent)
+            consequent = items-antecedent
+            antecedent_count = support_count(antecedent)
             conf = support(items)/support(antecedent)
-            lift = conf/support(consequent)
-            sup_count=support_count(items)
-            rules.append((antecedent,consequent,conf,lift,sup_count))
+            rules.append((antecedent, consequent, conf, sup_count, antecedent_count))
 
-            print(row_fmt.format(
-                str(antecedent),
-                "->",
-                str(consequent),
-                f"{support_percent(sup_count):.0f}%",
-                sup_count,
-                f"{conf*100:.0f}%",
-                f"{lift:.2f}"
-            ))
+            lhs = ", ".join(sorted(antecedent))
+            rhs = ", ".join(sorted(consequent))
+            strong_label = " (Strong)" if conf >= min_confidence else ""
+            print(f"- {lhs} -> {rhs} = {sup_count}/{antecedent_count} = {conf*100:.0f}%{strong_label}")
 
 # -----------------------------------------------------
 # STRONG ASSOCIATION RULES
@@ -176,9 +189,9 @@ print("\n\nSTRONG ASSOCIATION RULES (Confidence ≥ 66%):")
 print("-"*100)
 
 for r in rules:
-    antecedent,consequent,conf,lift,count=r
+    antecedent, consequent, conf, sup_count, antecedent_count = r
     if conf >= min_confidence:
-        print(f"{antecedent} -> {consequent}  (Confidence = {conf*100:.0f}%)")
+        print(f"{format_itemset(antecedent)} -> {format_itemset(consequent)} = {sup_count}/{antecedent_count} = {conf*100:.0f}%")
 
 # -----------------------------------------------------
 # CONCLUSION
@@ -187,9 +200,10 @@ for r in rules:
 print("\n\nCONCLUSION:")
 print("-"*100)
 
-print("A-Priori algorithm kept only patterns that passed min support (27%) and min confidence (66%).")
-print("For example, {Bread, Butter, Milk} appears in 2/7 transactions (28.6%), so it is frequent.")
-print("Rules from it are strong when confidence is >= 66%, e.g., {Bread, Milk} -> {Butter} has 100% confidence.")
-print("Meaning in this dataset: if a customer buys Bread and Milk, they also bought Butter.")
+print("Using min support = 27% and min confidence = 66%, we found 5 frequent itemsets:")
+print("{Beer, Diapers}, {Bread, Butter}, {Bread, Milk}, {Butter, Milk}, and {Bread, Butter, Milk}.")
+print("These produce candidate rules where most are strong (confidence >= 66%).")
+print("Examples: {Bread, Milk} -> {Butter} = 2/2 = 100% (strong), while {Butter} -> {Bread, Milk} = 2/4 = 50% (not strong).")
+print("Meaning in this dataset: Bread, Butter, and Milk are strongly associated in purchases.")
 
 print("-"*100)
