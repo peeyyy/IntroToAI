@@ -44,13 +44,15 @@ Each topic has two examples with printed step-by-step output to make the workflo
 	- Description: Mines frequent tag patterns from image-tag transactions.
 	- Sample output:
 
-<img width="768" height="1095" alt="A-Priori Example 1" src="https://github.com/user-attachments/assets/8ec2c108-61f9-4962-9f68-9a3f035e742c" />
+<img width="912" height="1160" alt="A-Priori Example 1A" src="https://github.com/user-attachments/assets/494a78a1-ff5a-4c2c-9696-5c3bd6eef3a2" />
+<img width="856" height="591" alt="A-Priori Example 1B" src="https://github.com/user-attachments/assets/5751f7cc-04bd-4c80-a666-20e1962140c1" />
 
 - `a-priori_ex2.py`
 	- Description: Discovers frequent itemsets and strong rules from shopping data.
 	- Sample output:
 
-<img width="731" height="1167" alt="A-Priori Example 2" src="https://github.com/user-attachments/assets/ce743c18-e202-43e7-82fd-9f8c857890e8" />
+<img width="831" height="1165" alt="A-Priori Example 2A" src="https://github.com/user-attachments/assets/38b66656-93f8-42b5-8164-93b7010f17eb" />
+<img width="980" height="763" alt="A-Priori Example 2B" src="https://github.com/user-attachments/assets/5be46a2a-2ce4-41e7-a7bd-c031bb01b7c4" />
 
 ### Differential Evolution
 
