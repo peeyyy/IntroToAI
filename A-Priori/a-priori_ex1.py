@@ -22,6 +22,7 @@ min_support_percent = 0.30      # 30%
 min_confidence = 0.70           # 70%
 num_transactions = len(transactions)
 
+print("="*70)
 print("A-PRIORI ALGORITHM — IMAGE TAG MINING")
 print("="*70)
 print(f"Transactions: {num_transactions}")
@@ -186,8 +187,8 @@ for r in rules:
 
 print("\n\nCONCLUSION:")
 print("-"*100)
-print("The A-Priori algorithm discovered patterns among image tags.")
-print("The rules with confidence greater than or equal to 70% are considered strong rules.")
-print("These rules indicate that when certain tags appear in an image, other tags are very likely to appear with them.")
-print("For example, tags such as Ocean, Beach, and Sunshine often occur together in the dataset.")
+print("A-Priori algorithm kept patterns that passed min support (30%) and min confidence (70%).")
+print("{Beach, Ocean, Sunshine} was selected because it appears in 2/5 images (40% support), above 30%.")
+print("Rules like {Ocean} -> {Beach, Sunshine} are strong because confidence is 100%, which is above 70%.")
+print("Meaning in this dataset: if an image has Ocean, it also has Beach and Sunshine.")
 print("-"*100)

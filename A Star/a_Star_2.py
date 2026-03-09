@@ -186,11 +186,11 @@ short_nodes = {"Sunrise", "USM Main Gate", "CBDEM", "KEPLRC"}
 node_colors=[]
 for node in G.nodes():
     if node in ["Sinamar 2 St","ICT Building"]:
-        node_colors.append("lightgreen")  # start and goal
+        node_colors.append("yellow")  # start and goal
     elif node in short_nodes:
         node_colors.append("magenta")  # nodes on shortest path
     else:
-        node_colors.append("skyblue")
+        node_colors.append("white")
 
 # Draw nodes (bigger circles)
 nx.draw_networkx_nodes(
@@ -215,7 +215,7 @@ nx.draw_networkx_edge_labels(
     G,
     pos,
     edge_labels=edge_labels,
-    font_color="black",
+    font_color="blue",
     font_size=11,
     bbox=dict(facecolor="white", edgecolor="none", alpha=0.7)
 )

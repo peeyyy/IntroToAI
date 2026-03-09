@@ -156,5 +156,7 @@ print("====================================")
 print("Math =", current[0])
 print("Science =", current[1])
 print("Programming =", current[2])
-
 print("Final Fitness =", fitness(current))
+print("This schedule has the lowest possible fitness (0),")
+print("meaning it exactly matches the preferred times with no deviation.")
+print("------------------------------------")

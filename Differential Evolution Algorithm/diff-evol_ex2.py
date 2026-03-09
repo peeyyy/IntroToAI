@@ -127,3 +127,4 @@ print("Product C =", 15)
 
 print("\nTotal Profit = 590")
 print(f"The algorithm selects {best} because it produces the highest profit.")
+print("------------------------------------")

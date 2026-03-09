@@ -25,6 +25,7 @@ min_confidence = 0.66          # 66%
 
 num_transactions = len(transactions)
 
+print("="*70)
 print("A-PRIORI ALGORITHM — MARKET BASKET ANALYSIS")
 print("="*70)
 print(f"Transactions: {num_transactions}")
@@ -186,9 +187,9 @@ for r in rules:
 print("\n\nCONCLUSION:")
 print("-"*100)
 
-print("Using the A-Priori algorithm, patterns among items bought in transactions were identified.")
-print("Frequent itemsets show which products commonly appear together in purchases.")
-print("Association rules with confidence greater than or equal to 66% are considered strong rules.")
-print("These rules indicate that when certain products are purchased, other products are likely to be purchased as well.")
+print("A-Priori algorithm kept only patterns that passed min support (27%) and min confidence (66%).")
+print("For example, {Bread, Butter, Milk} appears in 2/7 transactions (28.6%), so it is frequent.")
+print("Rules from it are strong when confidence is >= 66%, e.g., {Bread, Milk} -> {Butter} has 100% confidence.")
+print("Meaning in this dataset: if a customer buys Bread and Milk, they also bought Butter.")
 
 print("-"*100)
